@@ -34,22 +34,38 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': mimeType });
             let fluxo_arquivo = fs.createReadStream(caminho_completo_recurso);
             fluxo_arquivo.pipe(res);
-        }else 
-        if(recurso_carregado.isDirectory()){
-            res.writeHead(302, { 'Location': 'index.html' });
+            //res.end();
+            //tirei pois fluxo_arquivo.pipe(res); é assincrono e impede de carregar a pagina 
         }else{
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.write("500: error interno desconhecido")
+            if(recurso_carregado.isDirectory()){
+                console.log('É um diretorio');
+                let indexFile = path.join(caminho_completo_recurso, 'index.html');
+                if (fs.existsSync(indexFile)) {
+                    let mimeType = mymeTypes['html'];
+                    console.log(mimeType);
+                    res.writeHead(302, { 'Location': `index.html` });
+                    res.end();
+                }else{
+                    console.log('Arquivo index.html não encontrado');
+                    res.writeHead(404, { 'Content-Type': 'text/plain' });
+                    res.write("404: Arquivo não encontrado!");
+                    res.end();
+                }
+               
+            }else{
+                console.log('É nada foi encontrado');
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.write("500: error interno desconhecido");
+                res.end();
+            }
         }
-                
-        res.end();
-         
     }catch(error){
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.write("404:Arquivo não encontrado!");
         res.end();
     }
-   
+    
+    
 }).listen(port,hostname,()=>{
     console.log(`Servidor está executado http://${hostname}:${port}/`);
 });
