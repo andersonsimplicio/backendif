@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    body {
+      background-image: url("fundo.jpeg");
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(89, 202, 230, 0.829);
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-top: 0;    
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(245, 161, 83, 0.938);
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .login-container button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Seja Bem-Vindo</h2>
+    <form method="post" action="/login">
+      <input type="text" placeholder="Usuário" name='login_campo' required>
+      <input type="password" placeholder="Senha" name='login_passwd' required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</body>
+</html>
